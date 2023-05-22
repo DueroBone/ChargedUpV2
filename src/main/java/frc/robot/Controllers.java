@@ -19,187 +19,61 @@ public class Controllers {
   // effects unknown if port-bound controllers are not xbox
 
   /** XboxController on port zero */
-  public static class Zero {
-    public static CommandXboxController commObject = new CommandXboxController(0);
-    public static XboxController object = commObject.getHID();
-    public static Trigger A = commObject.a();
-    public static Trigger B = commObject.b();
-    public static Trigger X = commObject.x();
-    public static Trigger Y = commObject.y();
-    public static Trigger LeftBumper = commObject.leftBumper();
-    public static Trigger RightBumper = commObject.rightBumper();
-    public static Trigger LeftStickPress = commObject.leftStick();
-    public static Trigger RightStickPress = commObject.rightStick();
-    public static Trigger Share = commObject.start();
-    public static Trigger Options = commObject.back();
-    public static Trigger LeftTrigger = commObject.leftTrigger();
-    public static Trigger RightTrigger = commObject.rightTrigger();
-    public static Trigger PovUp = commObject.povUp();
-    public static Trigger PovUpLeft = commObject.povUpLeft();
-    public static Trigger PovUpRight = commObject.povUpRight();
-    public static Trigger PovDown = commObject.povDown();
-    public static Trigger PovDownLeft = commObject.povDownLeft();
-    public static Trigger PovDownRight = commObject.povDownRight();
-    public static Trigger PovLeft = commObject.povLeft();
-    public static Trigger PovRight = commObject.povRight();
+  public static class ControllerBase {
+    public CommandXboxController commObject;
+    public XboxController object;
+    public Trigger A;
+    public Trigger B;
+    public Trigger X;
+    public Trigger Y;
+    public Trigger LeftBumper;
+    public Trigger RightBumper;
+    public Trigger LeftStickPress;
+    public Trigger RightStickPress;
+    public Trigger Share;
+    public Trigger Options;
+    public Trigger LeftTrigger;
+    public Trigger RightTrigger;
+    public Trigger PovUp;
+    public Trigger PovUpLeft;
+    public Trigger PovUpRight;
+    public Trigger PovDown;
+    public Trigger PovDownLeft;
+    public Trigger PovDownRight;
+    public Trigger PovLeft;
+    public Trigger PovRight;
   }
 
-  /** XboxController on port one */
-  public static class One {
-    public static CommandXboxController commObject = new CommandXboxController(1);
-    public static XboxController object = commObject.getHID();
-    public static Trigger A = commObject.a();
-    public static Trigger B = commObject.b();
-    public static Trigger X = commObject.x();
-    public static Trigger Y = commObject.y();
-    public static Trigger LeftBumper = commObject.leftBumper();
-    public static Trigger RightBumper = commObject.rightBumper();
-    public static Trigger LeftStickPress = commObject.leftStick();
-    public static Trigger RightStickPress = commObject.rightStick();
-    public static Trigger Share = commObject.start();
-    public static Trigger Options = commObject.back();
-    public static Trigger LeftTrigger = commObject.leftTrigger();
-    public static Trigger RightTrigger = commObject.rightTrigger();
-    public static Trigger PovUp = commObject.povUp();
-    public static Trigger PovUpLeft = commObject.povUpLeft();
-    public static Trigger PovUpRight = commObject.povUpRight();
-    public static Trigger PovDown = commObject.povDown();
-    public static Trigger PovDownLeft = commObject.povDownLeft();
-    public static Trigger PovDownRight = commObject.povDownRight();
-    public static Trigger PovLeft = commObject.povLeft();
-    public static Trigger PovRight = commObject.povRight();
-  }
+  /**
+   * Xbox controller that will change to lowest numbered port that contains an
+   * Xbox controller
+   * // TODO
+   */
+  static class dynamicXbox {
+    XboxController object = new XboxController(5);
+    CommandXboxController commObject;
+    Trigger A;
+    Trigger B;
+    Trigger X;
+    Trigger Y;
+    Trigger LeftBumper;
+    Trigger RightBumper;
+    Trigger LeftStickPress;
+    Trigger RightStickPress;
+    Trigger Share;
+    Trigger Options;
+    Trigger LeftTrigger;
+    Trigger RightTrigger;
+    Trigger PovUp;
+    Trigger PovUpLeft;
+    Trigger PovUpRight;
+    Trigger PovDown;
+    Trigger PovDownLeft;
+    Trigger PovDownRight;
+    Trigger PovLeft;
+    Trigger PovRight;
 
-  /** XboxController on port two */
-  public static class Two {
-    public static CommandXboxController commObject = new CommandXboxController(2);
-    public static XboxController object = commObject.getHID();
-    public static Trigger A = commObject.a();
-    public static Trigger B = commObject.b();
-    public static Trigger X = commObject.x();
-    public static Trigger Y = commObject.y();
-    public static Trigger LeftBumper = commObject.leftBumper();
-    public static Trigger RightBumper = commObject.rightBumper();
-    public static Trigger LeftStickPress = commObject.leftStick();
-    public static Trigger RightStickPress = commObject.rightStick();
-    public static Trigger Share = commObject.start();
-    public static Trigger Options = commObject.back();
-    public static Trigger LeftTrigger = commObject.leftTrigger();
-    public static Trigger RightTrigger = commObject.rightTrigger();
-    public static Trigger PovUp = commObject.povUp();
-    public static Trigger PovUpLeft = commObject.povUpLeft();
-    public static Trigger PovUpRight = commObject.povUpRight();
-    public static Trigger PovDown = commObject.povDown();
-    public static Trigger PovDownLeft = commObject.povDownLeft();
-    public static Trigger PovDownRight = commObject.povDownRight();
-    public static Trigger PovLeft = commObject.povLeft();
-    public static Trigger PovRight = commObject.povRight();
-  }
-
-  /** XboxController on port three */
-  public static class Three {
-    public static CommandXboxController commObject = new CommandXboxController(3);
-    public static XboxController object = commObject.getHID();
-    public static Trigger A = commObject.a();
-    public static Trigger B = commObject.b();
-    public static Trigger X = commObject.x();
-    public static Trigger Y = commObject.y();
-    public static Trigger LeftBumper = commObject.leftBumper();
-    public static Trigger RightBumper = commObject.rightBumper();
-    public static Trigger LeftStickPress = commObject.leftStick();
-    public static Trigger RightStickPress = commObject.rightStick();
-    public static Trigger Share = commObject.start();
-    public static Trigger Options = commObject.back();
-    public static Trigger LeftTrigger = commObject.leftTrigger();
-    public static Trigger RightTrigger = commObject.rightTrigger();
-    public static Trigger PovUp = commObject.povUp();
-    public static Trigger PovUpLeft = commObject.povUpLeft();
-    public static Trigger PovUpRight = commObject.povUpRight();
-    public static Trigger PovDown = commObject.povDown();
-    public static Trigger PovDownLeft = commObject.povDownLeft();
-    public static Trigger PovDownRight = commObject.povDownRight();
-    public static Trigger PovLeft = commObject.povLeft();
-    public static Trigger PovRight = commObject.povRight();
-  }
-
-  /** XboxController on port four */
-  public static class Four {
-    public static CommandXboxController commObject = new CommandXboxController(4);
-    public static XboxController object = commObject.getHID();
-    public static Trigger A = commObject.a();
-    public static Trigger B = commObject.b();
-    public static Trigger X = commObject.x();
-    public static Trigger Y = commObject.y();
-    public static Trigger LeftBumper = commObject.leftBumper();
-    public static Trigger RightBumper = commObject.rightBumper();
-    public static Trigger LeftStickPress = commObject.leftStick();
-    public static Trigger RightStickPress = commObject.rightStick();
-    public static Trigger Share = commObject.start();
-    public static Trigger Options = commObject.back();
-    public static Trigger LeftTrigger = commObject.leftTrigger();
-    public static Trigger RightTrigger = commObject.rightTrigger();
-    public static Trigger PovUp = commObject.povUp();
-    public static Trigger PovUpLeft = commObject.povUpLeft();
-    public static Trigger PovUpRight = commObject.povUpRight();
-    public static Trigger PovDown = commObject.povDown();
-    public static Trigger PovDownLeft = commObject.povDownLeft();
-    public static Trigger PovDownRight = commObject.povDownRight();
-    public static Trigger PovLeft = commObject.povLeft();
-    public static Trigger PovRight = commObject.povRight();
-  }
-
-  /** XboxController on port five */
-  public static class Five {
-    public static CommandXboxController commObject = new CommandXboxController(5);
-    public static XboxController object = commObject.getHID();
-    public static Trigger A = commObject.a();
-    public static Trigger B = commObject.b();
-    public static Trigger X = commObject.x();
-    public static Trigger Y = commObject.y();
-    public static Trigger LeftBumper = commObject.leftBumper();
-    public static Trigger RightBumper = commObject.rightBumper();
-    public static Trigger LeftStickPress = commObject.leftStick();
-    public static Trigger RightStickPress = commObject.rightStick();
-    public static Trigger Share = commObject.start();
-    public static Trigger Options = commObject.back();
-    public static Trigger LeftTrigger = commObject.leftTrigger();
-    public static Trigger RightTrigger = commObject.rightTrigger();
-    public static Trigger PovUp = commObject.povUp();
-    public static Trigger PovUpLeft = commObject.povUpLeft();
-    public static Trigger PovUpRight = commObject.povUpRight();
-    public static Trigger PovDown = commObject.povDown();
-    public static Trigger PovDownLeft = commObject.povDownLeft();
-    public static Trigger PovDownRight = commObject.povDownRight();
-    public static Trigger PovLeft = commObject.povLeft();
-    public static Trigger PovRight = commObject.povRight();
-  }
-
-  /** Xbox controller that will change to lowest numbered port that contains an Xbox controller */
-  public static class dynamicXbox {
-    public static XboxController object = new XboxController(5);
-    public static CommandXboxController commObject;
-    public static Trigger A;
-    public static Trigger B;
-    public static Trigger X;
-    public static Trigger Y;
-    public static Trigger LeftBumper;
-    public static Trigger RightBumper;
-    public static Trigger LeftStickPress;
-    public static Trigger RightStickPress;
-    public static Trigger Share;
-    public static Trigger Options;
-    public static Trigger LeftTrigger;
-    public static Trigger RightTrigger;
-    public static Trigger PovUp;
-    public static Trigger PovUpLeft;
-    public static Trigger PovUpRight;
-    public static Trigger PovDown;
-    public static Trigger PovDownLeft;
-    public static Trigger PovDownRight;
-    public static Trigger PovLeft;
-    public static Trigger PovRight;
-
-    public static void updateController() {
+    void updateController() {
       ControllerTracking.updatePortNumbers();
       System.out.print(" Assigning dXbox: " + object.getPort());
       commObject = new CommandXboxController(object.getPort());
@@ -226,34 +100,37 @@ public class Controllers {
     }
   }
 
-  /** PS4 controller that will change to lowest numbered port that contains a PS4 controller */
-  public static class dynamicPlaystation {
-    public static PS4Controller object = new PS4Controller(5);
-    public static CommandPS4Controller commObject;
-    public static Trigger A;
-    public static Trigger B;
-    public static Trigger X;
-    public static Trigger Y;
-    public static Trigger LeftBumper;
-    public static Trigger RightBumper;
-    public static Trigger LeftStickPress;
-    public static Trigger RightStickPress;
-    public static Trigger Share;
-    public static Trigger Options;
-    public static Trigger LeftTrigger;
-    public static Trigger RightTrigger;
-    public static Trigger PovUp;
-    public static Trigger PovUpLeft;
-    public static Trigger PovUpRight;
-    public static Trigger PovDown;
-    public static Trigger PovDownLeft;
-    public static Trigger PovDownRight;
-    public static Trigger PovLeft;
-    public static Trigger PovRight;
-    public static Trigger Touchpad;
-    public static Trigger PS;
+  /**
+   * PS4 controller that will change to lowest numbered port that contains a PS4
+   * controller
+   */
+  static class dynamicPlaystation {
+    PS4Controller object = new PS4Controller(5);
+    CommandPS4Controller commObject;
+    Trigger A;
+    Trigger B;
+    Trigger X;
+    Trigger Y;
+    Trigger LeftBumper;
+    Trigger RightBumper;
+    Trigger LeftStickPress;
+    Trigger RightStickPress;
+    Trigger Share;
+    Trigger Options;
+    Trigger LeftTrigger;
+    Trigger RightTrigger;
+    Trigger PovUp;
+    Trigger PovUpLeft;
+    Trigger PovUpRight;
+    Trigger PovDown;
+    Trigger PovDownLeft;
+    Trigger PovDownRight;
+    Trigger PovLeft;
+    Trigger PovRight;
+    Trigger Touchpad;
+    Trigger PS;
 
-    public static void updateController() {
+    void updateController() {
       ControllerTracking.updatePortNumbers();
       System.out.print(" Assigning dPlaystations: " + object.getPort());
       commObject = new CommandPS4Controller(object.getPort());
@@ -282,23 +159,25 @@ public class Controllers {
     }
   }
 
-  /** Joystick that will change to lowest numbered port that contains a joystick */
-  public static class dynamicJoystick {
-    public static Joystick object = new Joystick(5);
-    public static CommandJoystick commObject;
-    public static Trigger Trigger;
-    public static Trigger Two;
-    public static Trigger Three;
-    public static Trigger Four;
-    public static Trigger Five;
-    public static Trigger Six;
-    public static Trigger Seven;
-    public static Trigger Eight;
-    public static Trigger Nine;
-    public static Trigger Ten;
-    public static Trigger Eleven;
+  /**
+   * Joystick that will change to lowest numbered port that contains a joystick
+   */
+  static class dynamicJoystick {
+    Joystick object = new Joystick(5);
+    CommandJoystick commObject;
+    Trigger Trigger;
+    Trigger Two;
+    Trigger Three;
+    Trigger Four;
+    Trigger Five;
+    Trigger Six;
+    Trigger Seven;
+    Trigger Eight;
+    Trigger Nine;
+    Trigger Ten;
+    Trigger Eleven;
 
-    public static void updateController() {
+    void updateController() {
       ControllerTracking.updatePortNumbers();
       System.out.print(" Assigning dJoystick: " + object.getPort());
       commObject = new CommandJoystick(object.getPort());
@@ -315,4 +194,42 @@ public class Controllers {
       Eleven = commObject.button(11);
     }
   }
+
+  static ControllerBase newController(int Port) {
+    ControllerBase Foo = new ControllerBase();
+    Foo.commObject = new CommandXboxController(Port);
+    Foo.object = Foo.commObject.getHID();
+    Foo.A = Foo.commObject.a();
+    Foo.B = Foo.commObject.b();
+    Foo.X = Foo.commObject.x();
+    Foo.Y = Foo.commObject.y();
+    Foo.LeftBumper = Foo.commObject.leftBumper();
+    Foo.RightBumper = Foo.commObject.rightBumper();
+    Foo.LeftStickPress = Foo.commObject.leftStick();
+    Foo.RightStickPress = Foo.commObject.rightStick();
+    Foo.Share = Foo.commObject.start();
+    Foo.Options = Foo.commObject.back();
+    Foo.LeftTrigger = Foo.commObject.leftTrigger();
+    Foo.RightTrigger = Foo.commObject.rightTrigger();
+    Foo.PovUp = Foo.commObject.povUp();
+    Foo.PovUpLeft = Foo.commObject.povUpLeft();
+    Foo.PovUpRight = Foo.commObject.povUpRight();
+    Foo.PovDown = Foo.commObject.povDown();
+    Foo.PovDownLeft = Foo.commObject.povDownLeft();
+    Foo.PovDownRight = Foo.commObject.povDownRight();
+    Foo.PovLeft = Foo.commObject.povLeft();
+    Foo.PovRight = Foo.commObject.povRight();
+    return Foo;
+  }
+
+  public static ControllerBase Zero = newController(0);
+  public static ControllerBase One = newController(1);
+  public static ControllerBase Two = newController(2);
+  public static ControllerBase Three = newController(3);
+  public static ControllerBase Four = newController(4);
+  public static ControllerBase Five = newController(5);
+
+  public static dynamicXbox dynamicXbox = new dynamicXbox();
+  public static dynamicPlaystation dynamicPlaystation = new dynamicPlaystation();
+  public static dynamicJoystick dynamicJoystick = new dynamicJoystick();
 }

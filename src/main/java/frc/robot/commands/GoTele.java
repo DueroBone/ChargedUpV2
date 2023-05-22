@@ -65,24 +65,28 @@ public class GoTele extends CommandBase {
     double armLift = 0;
     double armExtend = 0;
 
-    boolean usingConDynX = Math.abs(dynamicXbox.object.getLeftY()) > deadzone
-        || Math.abs(dynamicXbox.object.getRightY()) > deadzone;
+    ControllerBase driverController = RobotContainer.DriveControllerChooser.getSelected();
+    ControllerBase secondController = RobotContainer.SecondControllerChooser.getSelected();
+    ControllerBase fullController = RobotContainer.FullControllerChooser.getSelected();
 
-    if (dynamicXbox.object.isConnected() && usingConDynX) {
-      teleLeft = dynamicXbox.object.getLeftY() * -1;
-      teleRight = dynamicXbox.object.getRightY() * -1;
+    boolean usingConDynX = Math.abs(driverController.object.getLeftY()) > deadzone
+        || Math.abs(driverController.object.getRightY()) > deadzone;
 
-      if (dynamicXbox.LeftTrigger.getAsBoolean() == true) {
-        teleLeft = (dynamicXbox.object.getLeftY() +
-            dynamicXbox.object.getRightY()) / (-2);
+    if (driverController.object.isConnected() && usingConDynX) {
+      teleLeft = driverController.object.getLeftY() * -1;
+      teleRight = driverController.object.getRightY() * -1;
+
+      if (driverController.LeftTrigger.getAsBoolean() == true) {
+        teleLeft = (driverController.object.getLeftY() +
+            driverController.object.getRightY()) / (-2);
         teleRight = teleLeft;
       }
     }
 
-    if (dynamicPlaystation.object.isConnected()) {
+    if (secondController.object.isConnected()) {
       if (armManual) {
-        armLift = dynamicPlaystation.object.getLeftY() * -1;
-        armExtend = dynamicPlaystation.object.getRightY() * -1;
+        armLift = secondController.object.getLeftY() * -1;
+        armExtend = secondController.object.getRightY() * -1;
       } else {
         armLift = 0;
         armExtend = 0;
@@ -157,7 +161,7 @@ public class GoTele extends CommandBase {
     }
 
     if (drivingEnabled) {
-      if (dynamicXbox.RightBumper.getAsBoolean() || dynamicXbox.LeftBumper.getAsBoolean()) {
+      if (driverController.RightBumper.getAsBoolean() || driverController.LeftBumper.getAsBoolean()) {
         DriveTrain.doTankDrive(teleLeft / 3, teleRight / 3);
       } else {
         DriveTrain.doTankDrive(teleLeft, teleRight);

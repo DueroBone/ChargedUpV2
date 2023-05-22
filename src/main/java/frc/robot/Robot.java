@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.Controllers.dynamicXbox;
+// import frc.robot.Controllers.dynamicXbox;
 import frc.robot.subsystems.*;
 
 public class Robot extends TimedRobot {
@@ -154,7 +154,7 @@ public class Robot extends TimedRobot {
     // dynamicXbox.RightTrigger = new Button(RT);
     counter1++;
     if (counter1 % 3 == 0) {
-      double trigger = dynamicXbox.object.getRightTriggerAxis();
+      double trigger = RobotContainer.DriveControllerChooser.getSelected().object.getRightTriggerAxis();
       if ((trigger < 0.5) != isBraked) {
         System.out.println("Switched DriveTrain brake mode to " + isBraked);
         if (trigger < 0.5) {
