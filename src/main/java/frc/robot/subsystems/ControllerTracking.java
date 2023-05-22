@@ -1,9 +1,6 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.PS4Controller;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.HIDType;
 import frc.robot.Controllers;
 
@@ -24,10 +21,9 @@ public class ControllerTracking {
         JoystickTypes[i] = testHID.getType();
       }
     }
-    // TODO
-    // Controllers.dynamicXbox = Controllers.newController(indexOfType(JoystickTypes, isXbox));
-    // Controllers.dynamicPlaystation = Controllers.newController(indexOfType(JoystickTypes, HIDType.kHIDGamepad));
-    // Controllers.dynamicJoystick = Controllers.newController(indexOfType(JoystickTypes, HIDType.kHIDJoystick));
+    Controllers.dynamicXbox = Controllers.newController(indexOfType(JoystickTypes, isXbox));
+    Controllers.dynamicPlaystation = Controllers.newController(indexOfType(JoystickTypes, HIDType.kHIDGamepad));
+    Controllers.dynamicJoystick = Controllers.newController(indexOfType(JoystickTypes, HIDType.kHIDJoystick));
   }
 
   private static int indexOfType(HIDType[] HIDarray, HIDType type) {

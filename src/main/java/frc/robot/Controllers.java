@@ -18,7 +18,7 @@ public class Controllers {
 
   // effects unknown if port-bound controllers are not xbox
 
-  /** XboxController on port zero */
+  /** Generic controller */
   public static class ControllerBase {
     public CommandXboxController commObject;
     public XboxController object;
@@ -47,9 +47,8 @@ public class Controllers {
   /**
    * Xbox controller that will change to lowest numbered port that contains an
    * Xbox controller
-   * // TODO
    */
-  static class dynamicXbox {
+  static class dynamicXboxClass {
     XboxController object = new XboxController(5);
     CommandXboxController commObject;
     Trigger A;
@@ -104,7 +103,7 @@ public class Controllers {
    * PS4 controller that will change to lowest numbered port that contains a PS4
    * controller
    */
-  static class dynamicPlaystation {
+  static class dynamicPlaystationClass {
     PS4Controller object = new PS4Controller(5);
     CommandPS4Controller commObject;
     Trigger A;
@@ -161,8 +160,9 @@ public class Controllers {
 
   /**
    * Joystick that will change to lowest numbered port that contains a joystick
+   * // TODO
    */
-  static class dynamicJoystick {
+  static class dynamicJoystickClass {
     Joystick object = new Joystick(5);
     CommandJoystick commObject;
     Trigger Trigger;
@@ -195,7 +195,7 @@ public class Controllers {
     }
   }
 
-  static ControllerBase newController(int Port) {
+  public static ControllerBase newController(int Port) {
     ControllerBase Foo = new ControllerBase();
     Foo.commObject = new CommandXboxController(Port);
     Foo.object = Foo.commObject.getHID();
@@ -229,7 +229,7 @@ public class Controllers {
   public static ControllerBase Four = newController(4);
   public static ControllerBase Five = newController(5);
 
-  public static dynamicXbox dynamicXbox = new dynamicXbox();
-  public static dynamicPlaystation dynamicPlaystation = new dynamicPlaystation();
-  public static dynamicJoystick dynamicJoystick = new dynamicJoystick();
+  public static ControllerBase dynamicXbox = newController(5);
+  public static ControllerBase dynamicPlaystation = newController(5);
+  public static ControllerBase dynamicJoystick = newController(5);
 }

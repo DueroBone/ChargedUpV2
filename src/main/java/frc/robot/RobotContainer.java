@@ -5,7 +5,6 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
@@ -20,6 +19,7 @@ import frc.robot.commands.AutoBalanceV2;
 import frc.robot.commands.GoTele;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Claw;
+import frc.robot.subsystems.ControllerTracking;
 import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -82,12 +82,9 @@ public class RobotContainer {
       DriveControllerChooser.addOption("Port 3", Controllers.Three);
       DriveControllerChooser.addOption("Port 4", Controllers.Four);
       DriveControllerChooser.addOption("Port 5", Controllers.Five);
-      // DriveControllerChooser.addOption("Dynamic Xbox",
-      // Controllers.dynamicXbox.object);
-      // DriveControllerChooser.addOption("Dynamic Playstation",
-      // Controllers.dynamicPlaystation.object);
-      // DriveControllerChooser.addOption("Dynamic Joystick",
-      // Controllers.dynamicJoystick.object);
+      DriveControllerChooser.addOption("Dynamic Xbox", Controllers.dynamicXbox);
+      // DriveControllerChooser.addOption("Dynamic Playstation", Controllers.dynamicPlaystation);
+      // DriveControllerChooser.addOption("Dynamic Joystick", Controllers.dynamicJoystick);
       SmartDashboard.putData("Driving controller", DriveControllerChooser);
 
       SecondControllerChooser.addOption("None", null);
@@ -97,12 +94,9 @@ public class RobotContainer {
       SecondControllerChooser.addOption("Port 3", Controllers.Three);
       SecondControllerChooser.addOption("Port 4", Controllers.Four);
       SecondControllerChooser.addOption("Port 5", Controllers.Five);
-      // SecondControllerChooser.addOption("Dynamic Xbox",
-      // Controllers.dynamicXbox.object);
-      // SecondControllerChooser.addOption("Dynamic Playstation",
-      // Controllers.dynamicPlaystation.object);
-      // SecondControllerChooser.addOption("Dynamic Joystick",
-      // Controllers.dynamicJoystick.object);
+      SecondControllerChooser.addOption("Dynamic Xbox", Controllers.dynamicXbox);
+      SecondControllerChooser.addOption("Dynamic Playstation", Controllers.dynamicPlaystation);
+      // SecondControllerChooser.addOption("Dynamic Joystick", Controllers.dynamicJoystick.object);
       SmartDashboard.putData("Secondary controller", SecondControllerChooser);
 
       GuestControllerChooser.addOption("None", null);
@@ -112,12 +106,9 @@ public class RobotContainer {
       GuestControllerChooser.addOption("Port 3", Controllers.Three);
       GuestControllerChooser.setDefaultOption("Port 4", Controllers.Four);
       GuestControllerChooser.addOption("Port 5", Controllers.Five);
-      // GuestControllerChooser.addOption("Dynamic Xbox",
-      // Controllers.dynamicXbox.object);
-      // GuestControllerChooser.addOption("Dynamic Playstation",
-      // Controllers.dynamicPlaystation.object);
-      // GuestControllerChooser.addOption("Dynamic Joystick",
-      // Controllers.dynamicJoystick.object);
+      GuestControllerChooser.addOption("Dynamic Xbox", Controllers.dynamicXbox);
+      GuestControllerChooser.addOption("Dynamic Playstation", Controllers.dynamicPlaystation);
+      // GuestControllerChooser.addOption("Dynamic Joystick", Controllers.dynamicJoystick.object);
       SmartDashboard.putData("Guest controller", GuestControllerChooser);
       
       FullControllerChooser.addOption("None", null);
@@ -298,13 +289,8 @@ public class RobotContainer {
   }
 
   public static void RemapControllers() {
-    System.out.print("***Mapping controllers ");
-    // dynamicXbox.updateController(); // TODO
-    System.out.print(" * ");
-    // dynamicPlaystation.updateController();
-    System.out.print(" * ");
-    // dynamicJoystick.updateController();
-    System.out.print(" * ");
-    System.out.println(" * Done***");
+    System.out.print("**Mapping controllers ");
+    ControllerTracking.updatePortNumbers();
+    System.out.println(" * Done**");
   }
 }

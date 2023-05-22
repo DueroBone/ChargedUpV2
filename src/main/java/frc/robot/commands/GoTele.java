@@ -67,7 +67,7 @@ public class GoTele extends CommandBase {
 
     ControllerBase driverController = RobotContainer.DriveControllerChooser.getSelected();
     ControllerBase secondController = RobotContainer.SecondControllerChooser.getSelected();
-    ControllerBase fullController = RobotContainer.FullControllerChooser.getSelected();
+    // ControllerBase fullController = RobotContainer.FullControllerChooser.getSelected();
 
     boolean usingConDynX = Math.abs(driverController.object.getLeftY()) > deadzone
         || Math.abs(driverController.object.getRightY()) > deadzone;
