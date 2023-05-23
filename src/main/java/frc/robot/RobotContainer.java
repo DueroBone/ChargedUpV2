@@ -5,9 +5,14 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
+
+import org.opencv.ml.StatModel;
+
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Controllers.*;
@@ -43,6 +48,7 @@ public class RobotContainer {
   private static Command autoStartPos4Command;
   public static boolean inCompetition = false;
   public static boolean safteyEnabled = true;
+  public static boolean guestAllowed = false;
   public static String allianceColor;
   public static int startPosition;
   static Command AutoBalanceCommand;
@@ -83,8 +89,10 @@ public class RobotContainer {
       DriveControllerChooser.addOption("Port 4", Controllers.Four);
       DriveControllerChooser.addOption("Port 5", Controllers.Five);
       DriveControllerChooser.addOption("Dynamic Xbox", Controllers.dynamicXbox);
-      // DriveControllerChooser.addOption("Dynamic Playstation", Controllers.dynamicPlaystation);
-      // DriveControllerChooser.addOption("Dynamic Joystick", Controllers.dynamicJoystick);
+      // DriveControllerChooser.addOption("Dynamic Playstation",
+      // Controllers.dynamicPlaystation);
+      // DriveControllerChooser.addOption("Dynamic Joystick",
+      // Controllers.dynamicJoystick);
       SmartDashboard.putData("Driving controller", DriveControllerChooser);
 
       SecondControllerChooser.addOption("None", null);
@@ -96,7 +104,8 @@ public class RobotContainer {
       SecondControllerChooser.addOption("Port 5", Controllers.Five);
       SecondControllerChooser.addOption("Dynamic Xbox", Controllers.dynamicXbox);
       SecondControllerChooser.addOption("Dynamic Playstation", Controllers.dynamicPlaystation);
-      // SecondControllerChooser.addOption("Dynamic Joystick", Controllers.dynamicJoystick.object);
+      // SecondControllerChooser.addOption("Dynamic Joystick",
+      // Controllers.dynamicJoystick.object);
       SmartDashboard.putData("Secondary controller", SecondControllerChooser);
 
       GuestControllerChooser.addOption("None", null);
@@ -108,9 +117,10 @@ public class RobotContainer {
       GuestControllerChooser.addOption("Port 5", Controllers.Five);
       GuestControllerChooser.addOption("Dynamic Xbox", Controllers.dynamicXbox);
       GuestControllerChooser.addOption("Dynamic Playstation", Controllers.dynamicPlaystation);
-      // GuestControllerChooser.addOption("Dynamic Joystick", Controllers.dynamicJoystick.object);
+      // GuestControllerChooser.addOption("Dynamic Joystick",
+      // Controllers.dynamicJoystick.object);
       SmartDashboard.putData("Guest controller", GuestControllerChooser);
-      
+
       FullControllerChooser.addOption("None", null);
       FullControllerChooser.addOption("Port 0", Controllers.Zero);
       FullControllerChooser.addOption("Port 1", Controllers.One);
@@ -151,9 +161,11 @@ public class RobotContainer {
 
     ControllerBase SelectedDriver = DriveControllerChooser.getSelected();
     ControllerBase SelectedSecondary = SecondControllerChooser.getSelected();
+    ControllerBase SelectedFull = FullControllerChooser.getSelected();
     ControllerBase SelectedGuest = GuestControllerChooser.getSelected();
 
-    if (SelectedDriver != null) {
+    if (SelectedDriver != null && SelectedFull == null) {
+      System.out.println("Main controller on port " + SelectedDriver.object.getPort());
       SelectedDriver.A.onTrue(new InstantCommand(() -> Arm.customPosition(-12, 0)))
           .whileTrue(new InstantCommand(() -> Arm.moveToPreset()))
           .onFalse(new InstantCommand(() -> Arm.stopArm()));
@@ -165,9 +177,14 @@ public class RobotContainer {
       SelectedDriver.Share.onTrue(new InstantCommand(() -> AutoBalanceCommand.cancel()));
 
       SelectedDriver.RightTrigger.onTrue(new InstantCommand(() -> System.out.println("Hello world")));
+
+      SelectedDriver.LeftBumper.or(SelectedDriver.RightBumper)
+          .onTrue(new InstantCommand(() -> DriveTrain.doSlowMode(true)))
+          .onFalse(new InstantCommand(() -> DriveTrain.doSlowMode(false)));
     }
 
-    if (SelectedSecondary != null) {
+    if (SelectedSecondary != null && SelectedFull == null) {
+      System.out.println("Secondary driver on port " + SelectedSecondary.object.getPort());
       SelectedSecondary.A.onTrue(new InstantCommand(() -> Arm.drivingPosition()))
           .whileTrue(new InstantCommand(() -> Arm.moveToPreset()))
           .onFalse(new InstantCommand(() -> Arm.stopArm()));
@@ -206,8 +223,50 @@ public class RobotContainer {
       SelectedSecondary.Share.onTrue(new InstantCommand(() -> Arm.setLifter(0)));
     }
 
-    if (SelectedGuest != null) {
+    if (SelectedFull != null) {
+      System.out.println("Full controll on port " + SelectedFull.object.getPort());
+      SelectedFull.LeftStickPress.onTrue(new InstantCommand(() -> DriveTrain.doHighGear(true)));
+      SelectedFull.RightStickPress.onTrue(new InstantCommand(() -> DriveTrain.doHighGear(false)));
 
+      SelectedFull.A.onTrue(new InstantCommand(() -> Arm.drivingPosition()))
+          .whileTrue(new InstantCommand(() -> Arm.moveToPreset()))
+          .onFalse(new InstantCommand(() -> Arm.stopArm()));
+
+      SelectedFull.X.onTrue(new InstantCommand(() -> Arm.bottomPosition()))
+          .whileTrue(new InstantCommand(() -> Arm.moveToPreset()))
+          .onFalse(new InstantCommand(() -> Arm.stopArm()));
+
+      SelectedFull.B.onTrue(new InstantCommand(() -> Arm.scoringPosition()))
+          .whileTrue(new InstantCommand(() -> Arm.moveToPreset()))
+          .onFalse(new InstantCommand(() -> Arm.stopArm()));
+
+      SelectedFull.Y.onTrue(new InstantCommand(() -> Arm.startingPosition()))
+          .whileTrue(new InstantCommand(() -> Arm.moveToPreset()))
+          .onFalse(new InstantCommand(() -> Arm.stopArm()));
+
+      SelectedFull.LeftBumper.whileTrue(new InstantCommand(() -> Claw.open()))
+          .onFalse(new InstantCommand(() -> Claw.stop()));
+
+      SelectedFull.RightBumper.whileTrue(new InstantCommand(() -> Claw.close()))
+          .onFalse(new InstantCommand(() -> Claw.stop()));
+
+      SelectedFull.LeftTrigger.onTrue(new InstantCommand(() -> GoTele.enableArmManual()))
+          .onFalse(new InstantCommand(() -> GoTele.disableArmManual()));
+
+      SelectedFull.RightTrigger.onTrue(new InstantCommand(() -> safteyEnabled = false))
+          .onTrue(new InstantCommand(() -> System.out.println("SAFTEY LIMITS DISABLED")))
+          .onFalse(new InstantCommand(() -> safteyEnabled = true))
+          .onFalse(new InstantCommand(() -> System.out.println("SAFTEY LIMITS ENABLED")));
+
+      SelectedFull.Options.onTrue(new InstantCommand(() -> guestAllowed = !guestAllowed))
+          .onTrue(new InstantCommand(() -> System.out.println("Guest control set to " + guestAllowed)));
+    }
+
+    if (SelectedGuest != null) {
+      System.out.println("Guest controller on port " + SelectedGuest.object.getPort());
+      SelectedGuest.LeftTrigger.or(SelectedGuest.RightTrigger).and(() -> guestAllowed)
+          .onTrue(new InstantCommand(() -> GoTele.enableArmManual()))
+          .onFalse(new InstantCommand(() -> GoTele.disableArmManual()));
     }
 
     /*
@@ -290,7 +349,9 @@ public class RobotContainer {
 
   public static void RemapControllers() {
     System.out.print("**Mapping controllers ");
+    CommandScheduler.getInstance().getActiveButtonLoop().clear();
     ControllerTracking.updatePortNumbers();
+    RobotContainer.configureButtonBindings();
     System.out.println(" * Done**");
   }
 }

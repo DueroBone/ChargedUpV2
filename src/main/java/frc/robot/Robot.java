@@ -134,13 +134,8 @@ public class Robot extends TimedRobot {
     }
 
     counter1 = 0;
-    CommandScheduler.getInstance().getActiveButtonLoop().clear();;
-    RobotContainer.RemapControllers();
-    RobotContainer.configureButtonBindings();
 
-    CommandScheduler.getInstance().getActiveButtonLoop().clear();;
     RobotContainer.RemapControllers();
-    RobotContainer.configureButtonBindings();
   }
 
   /** This function is called periodically during operator control. */

@@ -67,12 +67,20 @@ public class GoTele extends CommandBase {
 
     ControllerBase driverController = RobotContainer.DriveControllerChooser.getSelected();
     ControllerBase secondController = RobotContainer.SecondControllerChooser.getSelected();
-    // ControllerBase fullController = RobotContainer.FullControllerChooser.getSelected();
+    ControllerBase fullController = RobotContainer.FullControllerChooser.getSelected();
+    ControllerBase guestController = RobotContainer.GuestControllerChooser.getSelected();
 
-    boolean usingConDynX = Math.abs(driverController.object.getLeftY()) > deadzone
+    boolean usingConDriver = Math.abs(driverController.object.getLeftY()) > deadzone
         || Math.abs(driverController.object.getRightY()) > deadzone;
 
-    if (driverController.object.isConnected() && usingConDynX) {
+    boolean usingConFull = Math.abs(fullController.object.getLeftY()) > deadzone
+        || Math.abs(fullController.object.getRightY()) > deadzone;
+
+    boolean usingConGuest = Math.abs(guestController.object.getLeftY()) > deadzone
+        || Math.abs(guestController.object.getRightY()) > deadzone;
+
+    // Driving controls
+    if (driverController.object.isConnected() && usingConDriver) {
       teleLeft = driverController.object.getLeftY() * -1;
       teleRight = driverController.object.getRightY() * -1;
 
@@ -81,69 +89,30 @@ public class GoTele extends CommandBase {
             driverController.object.getRightY()) / (-2);
         teleRight = teleLeft;
       }
+    } else if (fullController.object.isConnected() && usingConFull) {
+      teleLeft = fullController.object.getLeftY();
+      teleRight = fullController.object.getRightY();
+    } else if (guestController.object.isConnected() && usingConGuest) {
+      teleLeft = guestController.object.getLeftY();
+      teleRight = guestController.object.getRightY();
     }
 
-    if (secondController.object.isConnected()) {
-      if (armManual) {
-        armLift = secondController.object.getLeftY() * -1;
-        armExtend = secondController.object.getRightY() * -1;
-      } else {
-        armLift = 0;
-        armExtend = 0;
-      }
-    }
-
-    double a = 1 - deadzone;
-    a = 1 / a;
-
-    if (Math.abs(teleLeft) > deadzone) {
-      if (teleLeft > 0) {
-        teleLeft = teleLeft - deadzone;
-      } else {
-        teleLeft = teleLeft + deadzone;
-      }
-      teleLeft = teleLeft * a;
-      teleLeft = smartSquare(teleLeft, Constants.DriveConstants.drivingExponent);
-      teleLeft = teleLeft * speedMultiplier;
-    } else {
-      teleLeft = 0;
-    }
-    if (Math.abs(teleRight) > deadzone) {
-      if (teleRight > 0) {
-        teleRight = teleRight - deadzone;
-      } else {
-        teleRight = teleRight + deadzone;
-      }
-      teleRight = teleRight * a;
-      teleRight = smartSquare(teleRight, Constants.DriveConstants.drivingExponent);
-      teleRight = teleRight * speedMultiplier;
-    } else {
-      teleRight = 0;
-    }
-    if (Math.abs(armLift) > armDeadzone) {
-      if (armLift > 0) {
-        armLift = armLift - armDeadzone;
-      } else {
-        armLift = armLift + armDeadzone;
-      }
-      armLift = armLift * a;
-      armLift = smartSquare(armLift, Constants.DriveConstants.drivingExponent);
-      armLift = armLift * speedMultiplier;
+    // arm controls
+    if (secondController.object.isConnected() && armManual) {
+      armLift = secondController.object.getLeftY() * -1;
+      armExtend = secondController.object.getRightY() * -1;
+    } else if (fullController.object.isConnected() && armManual) {
+      armLift = fullController.object.getLeftY() * -1;
+      armExtend = fullController.object.getRightY() * -1;
     } else {
       armLift = 0;
-    }
-    if (Math.abs(armExtend) > armDeadzone) {
-      if (armExtend > 0) {
-        armExtend = armExtend - armDeadzone;
-      } else {
-        armExtend = armExtend + armDeadzone;
-      }
-      armExtend = armExtend * a;
-      armExtend = smartSquare(armExtend, Constants.DriveConstants.drivingExponent);
-      armExtend = armExtend * speedMultiplier;
-    } else {
       armExtend = 0;
     }
+
+    teleLeft = procDz(teleLeft, deadzone);
+    teleRight = procDz(teleRight, deadzone);
+    armLift = procDz(armLift, deadzone);
+    armExtend = procDz(armExtend, deadzone);
 
     if (armLift != 0) {
       if (armLift > 0) {
@@ -160,13 +129,17 @@ public class GoTele extends CommandBase {
       }
     }
 
-    if (drivingEnabled) {
-      if (driverController.RightBumper.getAsBoolean() || driverController.LeftBumper.getAsBoolean()) {
-        DriveTrain.doTankDrive(teleLeft / 3, teleRight / 3);
-      } else {
-        DriveTrain.doTankDrive(teleLeft, teleRight);
-      }
-    }
+    /*
+     * // depricated slow mode
+     * if (drivingEnabled) {
+     * if (driverController.RightBumper.getAsBoolean() ||
+     * driverController.LeftBumper.getAsBoolean()) {
+     * DriveTrain.doTankDrive(teleLeft / 3, teleRight / 3);
+     * } else {
+     * DriveTrain.doTankDrive(teleLeft, teleRight);
+     * }
+     * }
+     */
 
     if (armEnabled && armManual) {
       if (armLift != 0) {
@@ -191,6 +164,24 @@ public class GoTele extends CommandBase {
   @Override
   public boolean isFinished() {
     return false;
+  }
+
+  /** Proccess deadzone */
+  private double procDz(double input, double deadzone) {
+    double a = 1 - deadzone;
+    if (Math.abs(input) > deadzone) {
+      if (input > 0) {
+        input = input - deadzone;
+      } else {
+        input = input + deadzone;
+      }
+      input = input * a;
+      input = smartSquare(input, Constants.DriveConstants.drivingExponent);
+      input = input * speedMultiplier;
+    } else {
+      input = 0;
+    }
+    return input;
   }
 
   private static double smartSquare(double input, int exponent) {

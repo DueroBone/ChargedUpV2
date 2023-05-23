@@ -45,6 +45,7 @@ public class DriveTrain extends SubsystemBase {
   private static final boolean kSquareInputs = true;
   private static final boolean kSkipGyro = false;
   private static int counter = 0; // for limiting display
+  private static double speedMultiplier = 1;
   
   private static DoubleSolenoid gearChanger;
 
@@ -150,14 +151,10 @@ public class DriveTrain extends SubsystemBase {
    * @param right Speed in range [-1,1]
    */
   public static void doTankDrive(double leftDrivePercent, double rightDrivePercent) {
+    // leftDrivePercent *= 0.75;
 
-    //if (motorDriveLeft1.getBusVoltage() > motorDriveRight1.getBusVoltage()) {
-    //  rightDrivePercent = rightDrivePercent * (1 - ((motorDriveLeft1.getBusVoltage() - motorDriveRight1.getBusVoltage()) / motorDriveRight1.getBusVoltage()));
-    //} else {
-    //  leftDrivePercent = leftDrivePercent * (1 - ((motorDriveRight1.getBusVoltage() - motorDriveLeft1.getBusVoltage()) / motorDriveLeft1.getBusVoltage()));
-    //}
-
-    leftDrivePercent = leftDrivePercent * 0.75;
+    leftDrivePercent *= speedMultiplier;
+    rightDrivePercent *= speedMultiplier;
 
     if (counter++ % 100 == 0) {
       System.out.println("**driveTrain power L/R: " + leftDrivePercent + " | " + rightDrivePercent);
@@ -172,19 +169,6 @@ public class DriveTrain extends SubsystemBase {
     } else {
       driveGroupRight.stopMotor();
     }
-    // SmartDashboard.putNumber("Left 1", motorDriveLeft1.getBusVoltage());
-    // SmartDashboard.putNumber("Left 2", motorDriveLeft2.getBusVoltage());
-    // SmartDashboard.putNumber("Left 3", motorDriveLeft3.getBusVoltage());
-    // SmartDashboard.putNumber("Right 1", motorDriveRight1.getBusVoltage());
-    // SmartDashboard.putNumber("Right 2", motorDriveRight2.getBusVoltage());
-    // SmartDashboard.putNumber("Right 3", motorDriveRight3.getBusVoltage());
-  }
-
-  public void doTankDriveDefault(double leftDrivePercent, double rightDrivePercent) {
-
-    // if (counter++ % 100 == 0) { System.out.println("**default driveTrain power: "
-    // + leftDrivePercent+"-"+rightDrivePercent); }
-    differentialDrive.tankDrive(leftDrivePercent, rightDrivePercent, kSquareInputs); // send output to drive train
   }
 
   /**
@@ -269,6 +253,14 @@ public class DriveTrain extends SubsystemBase {
     }
   }
 
+  /** Artificial speed limit, 1/3 */
+  public static void doSlowMode(boolean slow) {
+    if (slow) {
+      speedMultiplier = 1/3;
+    } else {
+      speedMultiplier = 1;
+    }
+  }
 
   public static void stop() {
     System.out.println("in drivetrain stop");

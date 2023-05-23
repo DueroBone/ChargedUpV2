@@ -3,7 +3,11 @@
     "types": {
       "/FMSInfo": "FMSInfo",
       "/SmartDashboard/Auto Choices": "String Chooser",
-      "/SmartDashboard/Reset encoders on start": "String Chooser"
+      "/SmartDashboard/Driving controller": "String Chooser",
+      "/SmartDashboard/Full controller": "String Chooser",
+      "/SmartDashboard/Guest controller": "String Chooser",
+      "/SmartDashboard/Reset encoders on start": "String Chooser",
+      "/SmartDashboard/Secondary controller": "String Chooser"
     }
   }
 }
