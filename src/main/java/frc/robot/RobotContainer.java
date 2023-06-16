@@ -6,8 +6,6 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 
-import org.opencv.ml.StatModel;
-
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;

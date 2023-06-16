@@ -23,13 +23,13 @@ public class GoTele extends CommandBase {
   private boolean drivingEnabled = true;
   private boolean armEnabled = true;
   private double deadzone = -1;
+  private double armDeadzone = -1;
   private final DriveTrain drivetrain;
   private double speedMultiplier = 1;
   private final double armUpMax = DeviceConstants.armUpMax;
   private final double armDownMax = DeviceConstants.armDownMax;
   private final double armInMax = DeviceConstants.armInMax;
   private final double armOutMax = DeviceConstants.armOutMax;
-  private double armDeadzone = -1;
   private int counter = 0;
   private static boolean armManual = false;
   static boolean isHoldingArm = false;
@@ -111,8 +111,8 @@ public class GoTele extends CommandBase {
 
     teleLeft = procDz(teleLeft, deadzone);
     teleRight = procDz(teleRight, deadzone);
-    armLift = procDz(armLift, deadzone);
-    armExtend = procDz(armExtend, deadzone);
+    armLift = procDz(armLift, armDeadzone);
+    armExtend = procDz(armExtend, armDeadzone);
 
     if (armLift != 0) {
       if (armLift > 0) {

@@ -18,30 +18,31 @@ public class Controllers {
 
   // effects unknown if port-bound controllers are not xbox
 
-  /** Generic controller */
+  /** Generic controller */  
   public static class ControllerBase {
     public CommandXboxController commObject;
-    public XboxController object;
-    public Trigger A;
-    public Trigger B;
-    public Trigger X;
-    public Trigger Y;
-    public Trigger LeftBumper;
-    public Trigger RightBumper;
-    public Trigger LeftStickPress;
-    public Trigger RightStickPress;
-    public Trigger Share;
-    public Trigger Options;
-    public Trigger LeftTrigger;
-    public Trigger RightTrigger;
-    public Trigger PovUp;
-    public Trigger PovUpLeft;
-    public Trigger PovUpRight;
-    public Trigger PovDown;
-    public Trigger PovDownLeft;
-    public Trigger PovDownRight;
-    public Trigger PovLeft;
-    public Trigger PovRight;
+    public ControllerBase(int port) {commObject = new CommandXboxController(port);}
+    public XboxController object = commObject.getHID();
+    public Trigger A = commObject.a();
+    public Trigger B = commObject.b();
+    public Trigger X = commObject.x();
+    public Trigger Y = commObject.y();
+    public Trigger LeftBumper = commObject.leftBumper();
+    public Trigger RightBumper = commObject.rightBumper();
+    public Trigger Share = commObject.start();
+    public Trigger Options = commObject.back();
+    public Trigger LeftTrigger = commObject.leftTrigger();
+    public Trigger RightTrigger = commObject.rightTrigger();
+    public Trigger PovUp = commObject.povUp();
+    public Trigger PovUpLeft = commObject.povUpLeft();
+    public Trigger PovUpRight = commObject.povUpRight();
+    public Trigger PovDown = commObject.povDown();
+    public Trigger PovDownLeft = commObject.povDownLeft();
+    public Trigger PovDownRight = commObject.povDownRight();
+    public Trigger PovLeft = commObject.povLeft();
+    public Trigger PovRight = commObject.povRight();
+    public Trigger LeftStickPress = commObject.leftStick();
+    public Trigger RightStickPress = commObject.rightStick();
   }
 
   /**
@@ -195,6 +196,7 @@ public class Controllers {
     }
   }
 
+  /*
   public static ControllerBase newController(int Port) {
     ControllerBase Foo = new ControllerBase();
     Foo.commObject = new CommandXboxController(Port);
@@ -221,15 +223,16 @@ public class Controllers {
     Foo.PovRight = Foo.commObject.povRight();
     return Foo;
   }
+  */
 
-  public static ControllerBase Zero = newController(0);
-  public static ControllerBase One = newController(1);
-  public static ControllerBase Two = newController(2);
-  public static ControllerBase Three = newController(3);
-  public static ControllerBase Four = newController(4);
-  public static ControllerBase Five = newController(5);
+  public static ControllerBase Zero = new ControllerBase(0);
+  public static ControllerBase One = new ControllerBase(1);
+  public static ControllerBase Two = new ControllerBase(2);
+  public static ControllerBase Three = new ControllerBase(3);
+  public static ControllerBase Four = new ControllerBase(4);
+  public static ControllerBase Five = new ControllerBase(5);
 
-  public static ControllerBase dynamicXbox = newController(5);
-  public static ControllerBase dynamicPlaystation = newController(5);
-  public static ControllerBase dynamicJoystick = newController(5);
+  public static ControllerBase dynamicXbox = new ControllerBase(5);
+  public static ControllerBase dynamicPlaystation = new ControllerBase(5);
+  public static ControllerBase dynamicJoystick = new ControllerBase(5);
 }
