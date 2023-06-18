@@ -32,7 +32,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   public static final DriveTrain m_driveTrain = new DriveTrain();
 
-  Compressor c = new Compressor(PneumaticsModuleType.REVPH);
+  // Compressor c = new Compressor(PneumaticsModuleType.REVPH);
   /*
    * private static Command autoDriveStraightGyroCommand;
    * private static Command autoDriveStraightCommand;
@@ -46,7 +46,7 @@ public class RobotContainer {
   private static Command autoStartPos4Command;
   public static boolean inCompetition = false;
   public static boolean safteyEnabled = true;
-  public static boolean guestAllowed = false;
+  public static boolean guestAllowed = true;
   public static String allianceColor;
   public static int startPosition;
   static Command AutoBalanceCommand;
@@ -62,7 +62,7 @@ public class RobotContainer {
 
   public RobotContainer() {
 
-    m_driveTrain.setDefaultCommand(new GoTele(true, true, 0.1, 1, 0.1));
+    m_driveTrain.setDefaultCommand(new GoTele(true, true, 0.15, 1, 0.15));
     autoStartPos1Command = new AutoStartPos1(m_driveTrain);
     autoStartPos2Command = new AutoStartPos2(m_driveTrain);
     autoStartPos3Command = new AutoStartPos3(m_driveTrain);
@@ -79,52 +79,40 @@ public class RobotContainer {
     SmartDashboard.putData("Reset encoders on start", resetOnStartChooser);
 
     if (true) {// controller selection (shrinkable)
-      DriveControllerChooser.addOption("None", null);
+      // DriveControllerChooser.addOption("None", null);
       DriveControllerChooser.setDefaultOption("Port 0", Controllers.Zero);
       DriveControllerChooser.addOption("Port 1", Controllers.One);
       DriveControllerChooser.addOption("Port 2", Controllers.Two);
       DriveControllerChooser.addOption("Port 3", Controllers.Three);
       DriveControllerChooser.addOption("Port 4", Controllers.Four);
       DriveControllerChooser.addOption("Port 5", Controllers.Five);
-      DriveControllerChooser.addOption("Dynamic Xbox", Controllers.dynamicXbox);
+      // DriveControllerChooser.addOption("Dynamic Xbox", Controllers.dynamicXbox);
       // DriveControllerChooser.addOption("Dynamic Playstation",
       // Controllers.dynamicPlaystation);
       // DriveControllerChooser.addOption("Dynamic Joystick",
       // Controllers.dynamicJoystick);
       SmartDashboard.putData("Driving controller", DriveControllerChooser);
 
-      SecondControllerChooser.addOption("None", null);
+      // SecondControllerChooser.addOption("None", null);
       SecondControllerChooser.addOption("Port 0", Controllers.Zero);
       SecondControllerChooser.setDefaultOption("Port 1", Controllers.One);
       SecondControllerChooser.addOption("Port 2", Controllers.Two);
       SecondControllerChooser.addOption("Port 3", Controllers.Three);
       SecondControllerChooser.addOption("Port 4", Controllers.Four);
       SecondControllerChooser.addOption("Port 5", Controllers.Five);
-      SecondControllerChooser.addOption("Dynamic Xbox", Controllers.dynamicXbox);
-      SecondControllerChooser.addOption("Dynamic Playstation", Controllers.dynamicPlaystation);
+      // SecondControllerChooser.addOption("Dynamic Xbox", Controllers.dynamicXbox);
+      // SecondControllerChooser.addOption("Dynamic Playstation",
+      // Controllers.dynamicPlaystation);
       // SecondControllerChooser.addOption("Dynamic Joystick",
       // Controllers.dynamicJoystick.object);
       SmartDashboard.putData("Secondary controller", SecondControllerChooser);
 
-      GuestControllerChooser.addOption("None", null);
-      GuestControllerChooser.addOption("Port 0", Controllers.Zero);
-      GuestControllerChooser.addOption("Port 1", Controllers.One);
-      GuestControllerChooser.addOption("Port 2", Controllers.Two);
-      GuestControllerChooser.addOption("Port 3", Controllers.Three);
-      GuestControllerChooser.setDefaultOption("Port 4", Controllers.Four);
-      GuestControllerChooser.addOption("Port 5", Controllers.Five);
-      GuestControllerChooser.addOption("Dynamic Xbox", Controllers.dynamicXbox);
-      GuestControllerChooser.addOption("Dynamic Playstation", Controllers.dynamicPlaystation);
-      // GuestControllerChooser.addOption("Dynamic Joystick",
-      // Controllers.dynamicJoystick.object);
-      SmartDashboard.putData("Guest controller", GuestControllerChooser);
-
-      FullControllerChooser.addOption("None", null);
+      // FullControllerChooser.addOption("None", null);
       FullControllerChooser.addOption("Port 0", Controllers.Zero);
       FullControllerChooser.addOption("Port 1", Controllers.One);
       FullControllerChooser.addOption("Port 2", Controllers.Two);
-      FullControllerChooser.addOption("Port 3", Controllers.Three);
-      FullControllerChooser.setDefaultOption("Port 4", Controllers.Four);
+      FullControllerChooser.setDefaultOption("Port 3", Controllers.Three);
+      FullControllerChooser.addOption("Port 4", Controllers.Four);
       FullControllerChooser.addOption("Port 5", Controllers.Five);
       // FullControllerChooser.addOption("Dynamic Xbox",
       // Controllers.dynamicXbox.object);
@@ -133,6 +121,20 @@ public class RobotContainer {
       // FullControllerChooser.addOption("Dynamic Joystick",
       // Controllers.dynamicJoystick.object);
       SmartDashboard.putData("Full controller", FullControllerChooser);
+
+      // GuestControllerChooser.addOption("None", null);
+      GuestControllerChooser.addOption("Port 0", Controllers.Zero);
+      GuestControllerChooser.addOption("Port 1", Controllers.One);
+      GuestControllerChooser.addOption("Port 2", Controllers.Two);
+      GuestControllerChooser.addOption("Port 3", Controllers.Three);
+      GuestControllerChooser.setDefaultOption("Port 4", Controllers.Four);
+      GuestControllerChooser.addOption("Port 5", Controllers.Five);
+      // GuestControllerChooser.addOption("Dynamic Xbox", Controllers.dynamicXbox);
+      // GuestControllerChooser.addOption("Dynamic Playstation",
+      // Controllers.dynamicPlaystation);
+      // GuestControllerChooser.addOption("Dynamic Joystick",
+      // Controllers.dynamicJoystick.object);
+      SmartDashboard.putData("Guest controller", GuestControllerChooser);
     }
 
     AutoBalanceCommand = new AutoBalanceV2();
@@ -251,6 +253,8 @@ public class RobotContainer {
       SelectedFull.LeftTrigger.onTrue(new InstantCommand(() -> GoTele.enableArmManual()))
           .onFalse(new InstantCommand(() -> GoTele.disableArmManual()));
 
+      SelectedFull.Options.onTrue(new InstantCommand(() -> Arm.info.resetEncoders()));
+
       SelectedFull.RightTrigger.onTrue(new InstantCommand(() -> safteyEnabled = false))
           .onTrue(new InstantCommand(() -> System.out.println("SAFTEY LIMITS DISABLED")))
           .onFalse(new InstantCommand(() -> safteyEnabled = true))
@@ -265,6 +269,12 @@ public class RobotContainer {
       SelectedGuest.LeftTrigger.or(SelectedGuest.RightTrigger).and(() -> guestAllowed)
           .onTrue(new InstantCommand(() -> GoTele.enableArmManual()))
           .onFalse(new InstantCommand(() -> GoTele.disableArmManual()));
+
+      SelectedGuest.LeftBumper.whileTrue(new InstantCommand(() -> Claw.open()))
+          .onFalse(new InstantCommand(() -> Claw.stop()));
+
+      SelectedGuest.RightBumper.whileTrue(new InstantCommand(() -> Claw.close()))
+          .onFalse(new InstantCommand(() -> Claw.stop()));
     }
 
     /*

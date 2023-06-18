@@ -3,6 +3,8 @@ package frc.robot.commands;
 import java.text.MessageFormat;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
@@ -73,6 +75,9 @@ public class GoTele extends CommandBase {
     boolean usingConDriver = Math.abs(driverController.object.getLeftY()) > deadzone
         || Math.abs(driverController.object.getRightY()) > deadzone;
 
+    boolean usingConSecond = Math.abs(secondController.object.getLeftY()) > deadzone
+        || Math.abs(secondController.object.getRightY()) > deadzone;
+
     boolean usingConFull = Math.abs(fullController.object.getLeftY()) > deadzone
         || Math.abs(fullController.object.getRightY()) > deadzone;
 
@@ -81,32 +86,48 @@ public class GoTele extends CommandBase {
 
     // Driving controls
     if (driverController.object.isConnected() && usingConDriver) {
-      teleLeft = driverController.object.getLeftY() * -1;
-      teleRight = driverController.object.getRightY() * -1;
-
       if (driverController.LeftTrigger.getAsBoolean() == true) {
         teleLeft = (driverController.object.getLeftY() +
             driverController.object.getRightY()) / (-2);
         teleRight = teleLeft;
+      } else {
+        teleLeft = driverController.object.getLeftY() * -1;
+        teleRight = driverController.object.getRightY() * -1;
       }
-    } else if (fullController.object.isConnected() && usingConFull) {
-      teleLeft = fullController.object.getLeftY();
-      teleRight = fullController.object.getRightY();
-    } else if (guestController.object.isConnected() && usingConGuest) {
-      teleLeft = guestController.object.getLeftY();
-      teleRight = guestController.object.getRightY();
+      SmartDashboard.putString("Driver user", "Main");
+    } else if (fullController.object.isConnected() && usingConFull && !fullController.LeftTrigger.getAsBoolean()) {
+      teleLeft = fullController.object.getLeftY() * -1;
+      teleRight = fullController.object.getRightY() * -1;
+      SmartDashboard.putString("Driver user", "Full");
+    } else if (guestController.object.isConnected() && usingConGuest && !guestController.LeftTrigger.getAsBoolean()) {
+      teleLeft = guestController.object.getLeftY() * -0.4;
+      teleRight = guestController.object.getRightY() * -0.4;
+      SmartDashboard.putString("Driver user", "Guest");
+      // System.out.println("Guest Drive");
+    } else {
+      // System.out.println("no driving");
+      SmartDashboard.putString("Driver user", "None");
     }
 
     // arm controls
-    if (secondController.object.isConnected() && armManual) {
+    if (secondController.object.isConnected() && usingConSecond && armManual) {
       armLift = secondController.object.getLeftY() * -1;
       armExtend = secondController.object.getRightY() * -1;
-    } else if (fullController.object.isConnected() && armManual) {
+      SmartDashboard.putString("Arm user", "Secondary");
+    } else if (fullController.object.isConnected() && usingConFull && armManual) {
       armLift = fullController.object.getLeftY() * -1;
       armExtend = fullController.object.getRightY() * -1;
+      SmartDashboard.putString("Arm user", "Full");
+    } else if (guestController.object.isConnected() && usingConGuest && armManual) {
+      armLift = guestController.object.getLeftY() * -0.5;
+      armExtend = guestController.object.getRightY() * -0.5;
+      SmartDashboard.putString("Arm user", "Guest");
+      // System.out.println("Guest Arm");
     } else {
       armLift = 0;
       armExtend = 0;
+      SmartDashboard.putString("Arm user", "None");
+      // System.out.println("No arm: " + armManual);
     }
 
     teleLeft = procDz(teleLeft, deadzone);
@@ -129,17 +150,15 @@ public class GoTele extends CommandBase {
       }
     }
 
-    /*
-     * // depricated slow mode
-     * if (drivingEnabled) {
-     * if (driverController.RightBumper.getAsBoolean() ||
-     * driverController.LeftBumper.getAsBoolean()) {
-     * DriveTrain.doTankDrive(teleLeft / 3, teleRight / 3);
-     * } else {
-     * DriveTrain.doTankDrive(teleLeft, teleRight);
-     * }
-     * }
-     */
+    // depricated slow mode
+    if (drivingEnabled) {
+      if (driverController.RightBumper.getAsBoolean() ||
+          driverController.LeftBumper.getAsBoolean()) {
+        DriveTrain.doTankDrive(teleLeft / 3, teleRight / 3);
+      } else {
+        DriveTrain.doTankDrive(teleLeft, teleRight);
+      }
+    }
 
     if (armEnabled && armManual) {
       if (armLift != 0) {

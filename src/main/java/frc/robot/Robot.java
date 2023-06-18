@@ -19,8 +19,8 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
-  public static int CamWidth = 320;
-  public static int CamHeight = 240;
+  public static int CamWidth = 640;
+  public static int CamHeight = 480;
   //private ColorSensorV3 colorSensor;
   int counter1;
   boolean isBraked = true;
@@ -42,7 +42,7 @@ public class Robot extends TimedRobot {
       visionCamera.setResolution(CamWidth, CamHeight);
       visionCamera.setBrightness(15);
       visionCamera.setPixelFormat(PixelFormat.kYUYV);
-      visionCamera.setFPS(5);
+      visionCamera.setFPS(60);
       visionCamera.setResolution(CamWidth, CamHeight);
     } catch (VideoException e) {
       System.out.println("NO CAMERA DETECTED");

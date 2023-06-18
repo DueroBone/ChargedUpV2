@@ -19,30 +19,55 @@ public class Controllers {
   // effects unknown if port-bound controllers are not xbox
 
   /** Generic controller */  
+
   public static class ControllerBase {
     public CommandXboxController commObject;
-    public ControllerBase(int port) {commObject = new CommandXboxController(port);}
-    public XboxController object = commObject.getHID();
-    public Trigger A = commObject.a();
-    public Trigger B = commObject.b();
-    public Trigger X = commObject.x();
-    public Trigger Y = commObject.y();
-    public Trigger LeftBumper = commObject.leftBumper();
-    public Trigger RightBumper = commObject.rightBumper();
-    public Trigger Share = commObject.start();
-    public Trigger Options = commObject.back();
-    public Trigger LeftTrigger = commObject.leftTrigger();
-    public Trigger RightTrigger = commObject.rightTrigger();
-    public Trigger PovUp = commObject.povUp();
-    public Trigger PovUpLeft = commObject.povUpLeft();
-    public Trigger PovUpRight = commObject.povUpRight();
-    public Trigger PovDown = commObject.povDown();
-    public Trigger PovDownLeft = commObject.povDownLeft();
-    public Trigger PovDownRight = commObject.povDownRight();
-    public Trigger PovLeft = commObject.povLeft();
-    public Trigger PovRight = commObject.povRight();
-    public Trigger LeftStickPress = commObject.leftStick();
-    public Trigger RightStickPress = commObject.rightStick();
+    public XboxController object;
+    public Trigger A;
+    public Trigger B;
+    public Trigger X;
+    public Trigger Y;
+    public Trigger LeftBumper;
+    public Trigger RightBumper;
+    public Trigger Share;
+    public Trigger Options;
+    public Trigger LeftTrigger;
+    public Trigger RightTrigger;
+    public Trigger PovUp;
+    public Trigger PovUpLeft;
+    public Trigger PovUpRight;
+    public Trigger PovDown;
+    public Trigger PovDownLeft;
+    public Trigger PovDownRight;
+    public Trigger PovLeft;
+    public Trigger PovRight;
+    public Trigger LeftStickPress;
+    public Trigger RightStickPress;
+
+    public ControllerBase(int port) {
+      this.commObject = new CommandXboxController(port);
+      this.object = commObject.getHID();
+      this.A = commObject.a();
+      this.B = commObject.b();
+      this.X = commObject.x();
+      this.Y = commObject.y();
+      this.LeftBumper = commObject.leftBumper();
+      this.RightBumper = commObject.rightBumper();
+      this.Share = commObject.start();
+      this.Options = commObject.back();
+      this.LeftTrigger = commObject.leftTrigger();
+      this.RightTrigger = commObject.rightTrigger();
+      this.PovUp = commObject.povUp();
+      this.PovUpLeft = commObject.povUpLeft();
+      this.PovUpRight = commObject.povUpRight();
+      this.PovDown = commObject.povDown();
+      this.PovDownLeft = commObject.povDownLeft();
+      this.PovDownRight = commObject.povDownRight();
+      this.PovLeft = commObject.povLeft();
+      this.PovRight = commObject.povRight();
+      this.LeftStickPress = commObject.leftStick();
+      this.RightStickPress = commObject.rightStick();
+    }
   }
 
   /**
