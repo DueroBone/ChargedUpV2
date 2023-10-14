@@ -154,7 +154,7 @@ public class GoTele extends CommandBase {
     if (drivingEnabled) {
       if (driverController.RightBumper.getAsBoolean() ||
           driverController.LeftBumper.getAsBoolean()) {
-        DriveTrain.doTankDrive(teleLeft / 3, teleRight / 3);
+        DriveTrain.doTankDrive(teleLeft, teleRight);
       } else {
         DriveTrain.doTankDrive(teleLeft, teleRight);
       }

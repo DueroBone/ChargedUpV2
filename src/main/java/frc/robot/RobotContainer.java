@@ -164,10 +164,11 @@ public class RobotContainer {
     ControllerBase SelectedFull = FullControllerChooser.getSelected();
     ControllerBase SelectedGuest = GuestControllerChooser.getSelected();
 
-    if (SelectedDriver != null && SelectedFull == null) {
+    // if (SelectedDriver != null && SelectedFull == null) {
       System.out.println("Main controller on port " + SelectedDriver.object.getPort());
-      SelectedDriver.A.onTrue(new InstantCommand(() -> Arm.customPosition(-12, 0)))
-          .whileTrue(new InstantCommand(() -> Arm.moveToPreset()))
+      
+      SelectedDriver.A.onTrue(new InstantCommand(() -> Arm.setLifter(1)))
+          // .whileTrue(new InstantCommand(() -> Arm.moveToPreset()))
           .onFalse(new InstantCommand(() -> Arm.stopArm()));
 
       SelectedDriver.LeftStickPress.onTrue(new InstantCommand(() -> DriveTrain.doHighGear(true)));
@@ -181,9 +182,9 @@ public class RobotContainer {
       SelectedDriver.LeftBumper.or(SelectedDriver.RightBumper)
           .onTrue(new InstantCommand(() -> DriveTrain.doSlowMode(true)))
           .onFalse(new InstantCommand(() -> DriveTrain.doSlowMode(false)));
-    }
+    // }
 
-    if (SelectedSecondary != null && SelectedFull == null) {
+    // if (SelectedSecondary != null && SelectedFull == null) {
       System.out.println("Secondary driver on port " + SelectedSecondary.object.getPort());
       SelectedSecondary.A.onTrue(new InstantCommand(() -> Arm.drivingPosition()))
           .whileTrue(new InstantCommand(() -> Arm.moveToPreset()))
@@ -220,8 +221,8 @@ public class RobotContainer {
 
       SelectedSecondary.Options.onTrue(new InstantCommand(() -> Arm.stopArm()))
           .whileTrue(new InstantCommand(() -> Arm.holdLifter()));
-      SelectedSecondary.Share.onTrue(new InstantCommand(() -> Arm.setLifter(0)));
-    }
+      SelectedSecondary.Share.onTrue(new InstantCommand(() -> Arm.info.resetEncoders()));
+    // }
 
     if (SelectedFull != null) {
       System.out.println("Full controll on port " + SelectedFull.object.getPort());

@@ -4,14 +4,13 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.PS4Controller;
+// import edu.wpi.first.wpilibj.Joystick;
+// import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
-import edu.wpi.first.wpilibj2.command.button.CommandPS4Controller;
+// import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
+// import edu.wpi.first.wpilibj2.command.button.CommandPS4Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.subsystems.ControllerTracking;
 
 /** Where all of the controller objects are stored. */
 public class Controllers {
@@ -70,156 +69,156 @@ public class Controllers {
     }
   }
 
-  /**
-   * Xbox controller that will change to lowest numbered port that contains an
-   * Xbox controller
-   */
-  static class dynamicXboxClass {
-    XboxController object = new XboxController(5);
-    CommandXboxController commObject;
-    Trigger A;
-    Trigger B;
-    Trigger X;
-    Trigger Y;
-    Trigger LeftBumper;
-    Trigger RightBumper;
-    Trigger LeftStickPress;
-    Trigger RightStickPress;
-    Trigger Share;
-    Trigger Options;
-    Trigger LeftTrigger;
-    Trigger RightTrigger;
-    Trigger PovUp;
-    Trigger PovUpLeft;
-    Trigger PovUpRight;
-    Trigger PovDown;
-    Trigger PovDownLeft;
-    Trigger PovDownRight;
-    Trigger PovLeft;
-    Trigger PovRight;
+  // /**
+  //  * Xbox controller that will change to lowest numbered port that contains an
+  //  * Xbox controller
+  //  */
+  // static class dynamicXboxClass {
+  //   XboxController object = new XboxController(5);
+  //   CommandXboxController commObject;
+  //   Trigger A;
+  //   Trigger B;
+  //   Trigger X;
+  //   Trigger Y;
+  //   Trigger LeftBumper;
+  //   Trigger RightBumper;
+  //   Trigger LeftStickPress;
+  //   Trigger RightStickPress;
+  //   Trigger Share;
+  //   Trigger Options;
+  //   Trigger LeftTrigger;
+  //   Trigger RightTrigger;
+  //   Trigger PovUp;
+  //   Trigger PovUpLeft;
+  //   Trigger PovUpRight;
+  //   Trigger PovDown;
+  //   Trigger PovDownLeft;
+  //   Trigger PovDownRight;
+  //   Trigger PovLeft;
+  //   Trigger PovRight;
 
-    void updateController() {
-      ControllerTracking.updatePortNumbers();
-      System.out.print(" Assigning dXbox: " + object.getPort());
-      commObject = new CommandXboxController(object.getPort());
-      A = commObject.a();
-      B = commObject.b();
-      X = commObject.x();
-      Y = commObject.y();
-      LeftBumper = commObject.leftBumper();
-      RightBumper = commObject.rightBumper();
-      LeftStickPress = commObject.leftStick();
-      RightStickPress = commObject.rightStick();
-      Share = commObject.start();
-      Options = commObject.back();
-      LeftTrigger = commObject.leftTrigger();
-      RightTrigger = commObject.rightTrigger();
-      PovUp = commObject.povUp();
-      PovUpLeft = commObject.povUpLeft();
-      PovUpRight = commObject.povUpRight();
-      PovDown = commObject.povDown();
-      PovDownLeft = commObject.povDownLeft();
-      PovDownRight = commObject.povDownRight();
-      PovLeft = commObject.povLeft();
-      PovRight = commObject.povRight();
-    }
-  }
+  //   void updateController() {
+  //     ControllerTracking.updatePortNumbers();
+  //     System.out.print(" Assigning dXbox: " + object.getPort());
+  //     commObject = new CommandXboxController(object.getPort());
+  //     A = commObject.a();
+  //     B = commObject.b();
+  //     X = commObject.x();
+  //     Y = commObject.y();
+  //     LeftBumper = commObject.leftBumper();
+  //     RightBumper = commObject.rightBumper();
+  //     LeftStickPress = commObject.leftStick();
+  //     RightStickPress = commObject.rightStick();
+  //     Share = commObject.start();
+  //     Options = commObject.back();
+  //     LeftTrigger = commObject.leftTrigger();
+  //     RightTrigger = commObject.rightTrigger();
+  //     PovUp = commObject.povUp();
+  //     PovUpLeft = commObject.povUpLeft();
+  //     PovUpRight = commObject.povUpRight();
+  //     PovDown = commObject.povDown();
+  //     PovDownLeft = commObject.povDownLeft();
+  //     PovDownRight = commObject.povDownRight();
+  //     PovLeft = commObject.povLeft();
+  //     PovRight = commObject.povRight();
+  //   }
+  // }
 
-  /**
-   * PS4 controller that will change to lowest numbered port that contains a PS4
-   * controller
-   */
-  static class dynamicPlaystationClass {
-    PS4Controller object = new PS4Controller(5);
-    CommandPS4Controller commObject;
-    Trigger A;
-    Trigger B;
-    Trigger X;
-    Trigger Y;
-    Trigger LeftBumper;
-    Trigger RightBumper;
-    Trigger LeftStickPress;
-    Trigger RightStickPress;
-    Trigger Share;
-    Trigger Options;
-    Trigger LeftTrigger;
-    Trigger RightTrigger;
-    Trigger PovUp;
-    Trigger PovUpLeft;
-    Trigger PovUpRight;
-    Trigger PovDown;
-    Trigger PovDownLeft;
-    Trigger PovDownRight;
-    Trigger PovLeft;
-    Trigger PovRight;
-    Trigger Touchpad;
-    Trigger PS;
+  // /**
+  //  * PS4 controller that will change to lowest numbered port that contains a PS4
+  //  * controller
+  //  */
+  // static class dynamicPlaystationClass {
+  //   PS4Controller object = new PS4Controller(5);
+  //   CommandPS4Controller commObject;
+  //   Trigger A;
+  //   Trigger B;
+  //   Trigger X;
+  //   Trigger Y;
+  //   Trigger LeftBumper;
+  //   Trigger RightBumper;
+  //   Trigger LeftStickPress;
+  //   Trigger RightStickPress;
+  //   Trigger Share;
+  //   Trigger Options;
+  //   Trigger LeftTrigger;
+  //   Trigger RightTrigger;
+  //   Trigger PovUp;
+  //   Trigger PovUpLeft;
+  //   Trigger PovUpRight;
+  //   Trigger PovDown;
+  //   Trigger PovDownLeft;
+  //   Trigger PovDownRight;
+  //   Trigger PovLeft;
+  //   Trigger PovRight;
+  //   Trigger Touchpad;
+  //   Trigger PS;
 
-    void updateController() {
-      ControllerTracking.updatePortNumbers();
-      System.out.print(" Assigning dPlaystations: " + object.getPort());
-      commObject = new CommandPS4Controller(object.getPort());
-      A = commObject.cross();
-      B = commObject.circle();
-      X = commObject.square();
-      Y = commObject.triangle();
-      LeftBumper = commObject.L1();
-      RightBumper = commObject.R1();
-      LeftStickPress = commObject.L3();
-      RightStickPress = commObject.R3();
-      Share = commObject.share();
-      Options = commObject.options();
-      LeftTrigger = commObject.L2();
-      RightTrigger = commObject.R2();
-      PovUp = commObject.povUp();
-      PovUpLeft = commObject.povUpLeft();
-      PovUpRight = commObject.povUpRight();
-      PovDown = commObject.povDown();
-      PovDownLeft = commObject.povDownLeft();
-      PovDownRight = commObject.povDownRight();
-      PovLeft = commObject.povLeft();
-      PovRight = commObject.povRight();
-      Touchpad = commObject.touchpad();
-      PS = commObject.PS();
-    }
-  }
+  //   void updateController() {
+  //     ControllerTracking.updatePortNumbers();
+  //     System.out.print(" Assigning dPlaystations: " + object.getPort());
+  //     commObject = new CommandPS4Controller(object.getPort());
+  //     A = commObject.cross();
+  //     B = commObject.circle();
+  //     X = commObject.square();
+  //     Y = commObject.triangle();
+  //     LeftBumper = commObject.L1();
+  //     RightBumper = commObject.R1();
+  //     LeftStickPress = commObject.L3();
+  //     RightStickPress = commObject.R3();
+  //     Share = commObject.share();
+  //     Options = commObject.options();
+  //     LeftTrigger = commObject.L2();
+  //     RightTrigger = commObject.R2();
+  //     PovUp = commObject.povUp();
+  //     PovUpLeft = commObject.povUpLeft();
+  //     PovUpRight = commObject.povUpRight();
+  //     PovDown = commObject.povDown();
+  //     PovDownLeft = commObject.povDownLeft();
+  //     PovDownRight = commObject.povDownRight();
+  //     PovLeft = commObject.povLeft();
+  //     PovRight = commObject.povRight();
+  //     Touchpad = commObject.touchpad();
+  //     PS = commObject.PS();
+  //   }
+  // }
 
-  /**
-   * Joystick that will change to lowest numbered port that contains a joystick
-   * // TODO
-   */
-  static class dynamicJoystickClass {
-    Joystick object = new Joystick(5);
-    CommandJoystick commObject;
-    Trigger Trigger;
-    Trigger Two;
-    Trigger Three;
-    Trigger Four;
-    Trigger Five;
-    Trigger Six;
-    Trigger Seven;
-    Trigger Eight;
-    Trigger Nine;
-    Trigger Ten;
-    Trigger Eleven;
+  // /**
+  //  * Joystick that will change to lowest numbered port that contains a joystick
+  //  * // TODO
+  //  */
+  // static class dynamicJoystickClass {
+  //   Joystick object = new Joystick(5);
+  //   CommandJoystick commObject;
+  //   Trigger Trigger;
+  //   Trigger Two;
+  //   Trigger Three;
+  //   Trigger Four;
+  //   Trigger Five;
+  //   Trigger Six;
+  //   Trigger Seven;
+  //   Trigger Eight;
+  //   Trigger Nine;
+  //   Trigger Ten;
+  //   Trigger Eleven;
 
-    void updateController() {
-      ControllerTracking.updatePortNumbers();
-      System.out.print(" Assigning dJoystick: " + object.getPort());
-      commObject = new CommandJoystick(object.getPort());
-      Trigger = commObject.button(1);
-      Two = commObject.button(2);
-      Three = commObject.button(3);
-      Four = commObject.button(4);
-      Five = commObject.button(5);
-      Six = commObject.button(6);
-      Seven = commObject.button(7);
-      Eight = commObject.button(8);
-      Nine = commObject.button(9);
-      Ten = commObject.button(10);
-      Eleven = commObject.button(11);
-    }
-  }
+  //   void updateController() {
+  //     ControllerTracking.updatePortNumbers();
+  //     System.out.print(" Assigning dJoystick: " + object.getPort());
+  //     commObject = new CommandJoystick(object.getPort());
+  //     Trigger = commObject.button(1);
+  //     Two = commObject.button(2);
+  //     Three = commObject.button(3);
+  //     Four = commObject.button(4);
+  //     Five = commObject.button(5);
+  //     Six = commObject.button(6);
+  //     Seven = commObject.button(7);
+  //     Eight = commObject.button(8);
+  //     Nine = commObject.button(9);
+  //     Ten = commObject.button(10);
+  //     Eleven = commObject.button(11);
+  //   }
+  // }
 
   /*
   public static ControllerBase newController(int Port) {

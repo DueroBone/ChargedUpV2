@@ -256,7 +256,7 @@ public class DriveTrain extends SubsystemBase {
   /** Artificial speed limit, 1/3 */
   public static void doSlowMode(boolean slow) {
     if (slow) {
-      speedMultiplier = 1/3;
+      speedMultiplier = 0.3;
     } else {
       speedMultiplier = 1;
     }
